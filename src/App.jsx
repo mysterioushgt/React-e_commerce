@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import Header from './Component/layout/Header'
 import Home from './Component/Home'
@@ -9,6 +10,7 @@ import Register from './Component/user/Register'
 import Dashboard from './Component/admin/Dashboard'
 import Contact from './Component/Contact'
 import Cart from './Component/cart/Cart'
+import Checkout from './Component/checkout/Checkout'
 
 
 
@@ -24,6 +26,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/> } />
         <Route path="/contact" element={<Contact/> } />
         <Route path="/cart" element={<Cart/> } />
+        <Route path="/checkout" element={<Checkout/> } />
         </Routes>
     <Footer/>
     </>

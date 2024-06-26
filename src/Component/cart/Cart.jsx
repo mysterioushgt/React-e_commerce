@@ -8,10 +8,10 @@ import { addItemsToCart, removeCartItem } from '../../redux/actions/CartAction';
 
 function Cart() {
     const dispatch = useDispatch()
-
-
     const navigate = useNavigate()
 
+    const { isAuthenticated } = useSelector((state) => state.auth);
+    
     const { cartItems } = useSelector(state => state.cart)
     // console.log(cartItems)
 
@@ -36,7 +36,11 @@ function Cart() {
     }
 
     const checkoutHandler = () => {
-        navigate('/login')
+        if (isAuthenticated) {
+            navigate('/checkout')
+          } else {
+            navigate('/login')
+          }
     }
     return (
         <>

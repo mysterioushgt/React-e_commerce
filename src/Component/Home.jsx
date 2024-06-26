@@ -33,26 +33,30 @@ function Home() {
     <>
     <MetaData title ='Home'/>
 
-      {/* carousel start */}
-      <div className="col-lg-8 mb-2">
+     {/* carousel start */}
+     <div className="container-fluid">
+        <div className="row px-xl-5 mb-2">
+          <div className="col-lg-8 mb-2">
             <div className="carousel slide carousel-fade" data-bs-ride="carousel" id="cr">
               <div className="carousel-indicators">
-                <button type="button" data-bs-target="#cr" data-bs-slide-to="0"></button>
+                <button type="button" data-bs-target="#cr" data-bs-slide-to="0" className="active"></button>
                 <button type="button" data-bs-target="#cr" data-bs-slide-to="1"></button>
                 <button type="button" data-bs-target="#cr" data-bs-slide-to="2"></button>
               </div>
               <div className="carousel-inner">
-          {
+                
+              {
             loading ? (<Loading />) : (
-              sliders.map ((slider) => (
-                <Slider slider={slider} />
+              sliders.map((slider) => (
+               <Slider slider={slider}/>
               ))
             )
           }
+              
+              </div>
+              
+            </div>
           </div>
-          </div>
-        </div>
-
           <div className="col-lg-4">
             <div className="offers1 mb-3">
               <div className="d-flex align-items-center justify-content-center flex-column">
@@ -69,6 +73,8 @@ function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
       {/* feature start */}
       <div className="container-fluid my-5">
         <div className="row px-xl-5">
