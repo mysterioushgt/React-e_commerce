@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './Component/layout/Header'
 import Home from './Component/Home'
 import Footer from './Component/layout/Footer'
@@ -11,10 +11,16 @@ import Dashboard from './Component/admin/Dashboard'
 import Contact from './Component/Contact'
 import Cart from './Component/cart/Cart'
 import Checkout from './Component/checkout/Checkout'
-
+import { useDispatch } from 'react-redux'
+import { loadUser } from './redux/actions/UserAction'
 
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() =>{
+    dispatch(loadUser())
+  })
   return (
     <>
     <Header/>

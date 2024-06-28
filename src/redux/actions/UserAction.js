@@ -80,6 +80,27 @@ export const logout = () => async (dispatch) => {
         dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
     }
 };
+export const loadUser = () => async (dispatch) => {
+    try {
+        console.log('loading')
+        // dispatch({ type: LOAD_USER_REQUEST })
+
+        // let link = 'https://apiecommerce-i1jx.onrender.com/api/me'
+
+        // const { data } = await axios.get(link)
+        // console.log(data)
+
+        // dispatch({
+        //     type: LOAD_USER_SUCCESS,
+        //     payload: data.user
+        // })
+    } catch (err) {
+        dispatch({
+            type: LOAD_USER_FAIL,
+            payload: err.response.data.message
+        })
+    }
+}
 //for clear errors
 export const clearErrors=()=>async(dispatch)=>{
     dispatch({type: CLEAR_ERRORS})
