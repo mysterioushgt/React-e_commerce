@@ -14,6 +14,9 @@ import Checkout from './Component/checkout/Checkout'
 import { useDispatch } from 'react-redux'
 import { loadUser } from './redux/actions/UserAction'
 import Profile from './Component/user/Profile'
+import CheckoutStep from './Component/cart/CheckoutStep'
+import Shipping from './Component/cart/Shipping'
+import ConfirmOrder from './Component/cart/ConfirmOrder'
 
 
 function App() {
@@ -35,6 +38,9 @@ function App() {
         <Route path="/cart" element={<Cart/> } />
         <Route path="/checkout" element={<Checkout/> } />
         <Route path="/profile" element={<Profile/> } />
+        <Route path="/shipping" element={<Shipping/> } />
+        <Route path="/checkoutStep" element={<CheckoutStep/> } />
+        <Route path="/order/confirm" element={<ConfirmOrder/> } />
         </Routes>
     <Footer/>
     </>
