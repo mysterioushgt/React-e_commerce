@@ -9,7 +9,7 @@ import {
 import axios from 'axios'
 
 export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
-    const { data } = await axios.get(`https://apiecommerce-i1jx.onrender.com/api/getProductDetail/${id}`);
+    const { data } = await axios.get(`/api/getProductDetail/${id}`);
 //    console.log(quantity);
   
     dispatch({

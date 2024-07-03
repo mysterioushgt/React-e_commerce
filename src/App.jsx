@@ -13,6 +13,7 @@ import Cart from './Component/cart/Cart'
 import Checkout from './Component/checkout/Checkout'
 import { useDispatch } from 'react-redux'
 import { loadUser } from './redux/actions/UserAction'
+import Profile from './Component/user/Profile'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/contact" element={<Contact/> } />
         <Route path="/cart" element={<Cart/> } />
         <Route path="/checkout" element={<Checkout/> } />
+        <Route path="/profile" element={<Profile/> } />
         </Routes>
     <Footer/>
     </>

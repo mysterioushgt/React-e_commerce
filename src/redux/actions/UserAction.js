@@ -54,7 +54,7 @@ export const loginUser = (email, password) => async (dispatch) => {
             },
         };
 
-        let link = 'https://apiecommerce-i1jx.onrender.com/api/loginUser'
+        let link = '/api/loginUser'
 
         const { data } = await axios.post(link, { email, password }, config)
         // console.log(data)
@@ -73,7 +73,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 // Logout User
 export const logout = () => async (dispatch) => {
     try {
-        await axios.get(`https://apiecommerce-i1jx.onrender.com/api/logout`);
+        await axios.get(`/api/logout`);
 
         dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
@@ -82,18 +82,18 @@ export const logout = () => async (dispatch) => {
 };
 export const loadUser = () => async (dispatch) => {
     try {
-        console.log('loading')
-        // dispatch({ type: LOAD_USER_REQUEST })
+        //console.log('loading')
+        dispatch({ type: LOAD_USER_REQUEST })
 
-        // let link = 'https://apiecommerce-i1jx.onrender.com/api/me'
+        let link = '/api/me'
 
-        // const { data } = await axios.get(link)
-        // console.log(data)
+        const { data } = await axios.get(link)
+        console.log(data)
 
-        // dispatch({
-        //     type: LOAD_USER_SUCCESS,
-        //     payload: data.user
-        // })
+        dispatch({
+            type: LOAD_USER_SUCCESS,
+            payload: data.user
+        })
     } catch (err) {
         dispatch({
             type: LOAD_USER_FAIL,
