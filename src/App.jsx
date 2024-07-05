@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import './App.css'
 import React, { useEffect } from 'react'
 import Header from './Component/layout/Header'
 import Home from './Component/Home'
@@ -17,6 +18,7 @@ import Profile from './Component/user/Profile'
 import CheckoutStep from './Component/cart/CheckoutStep'
 import Shipping from './Component/cart/Shipping'
 import ConfirmOrder from './Component/cart/ConfirmOrder'
+import Payment from './Component/payment/Payment'
 
 
 function App() {
@@ -41,6 +43,7 @@ function App() {
         <Route path="/shipping" element={<Shipping/> } />
         <Route path="/checkoutStep" element={<CheckoutStep/> } />
         <Route path="/order/confirm" element={<ConfirmOrder/> } />
+        <Route path="/payment" element={<Payment/> } />
         </Routes>
     <Footer/>
     </>
