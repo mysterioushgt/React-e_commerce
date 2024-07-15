@@ -30,7 +30,7 @@ const options = {
 }
 function Payment() {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-
+const dispatch = useDispatch()
   const alert = useAlert();
   const stripe = useStripe();
   const elements = useElements();
