@@ -86,7 +86,7 @@ function Payment() {
           },
         },
       });
-      // console.log(result)
+       console.log(result)
 
       //Order
       if (result.error) {
@@ -108,8 +108,8 @@ function Payment() {
     }
     catch (error) {
       document.querySelector('#pay_btn').disabled = false;
-      alert.error(error.response.data.message);
-      //console.log(error.response.data.message)
+      //alert.error(error.response.data.message);
+      console.log(error)
     }
   }
   return (
