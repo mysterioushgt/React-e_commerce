@@ -14,7 +14,7 @@ import Dashboard from './Component/admin/Dashboard'
 import Contact from './Component/Contact'
 import Cart from './Component/cart/Cart'
 import Checkout from './Component/checkout/Checkout'
-import { useDispatch } from 'react-redux'
+import { useDispatch , useSelector } from 'react-redux'
 import { loadUser } from './redux/actions/UserAction'
 import Profile from './Component/user/Profile'
 import CheckoutStep from './Component/cart/CheckoutStep'
@@ -24,10 +24,14 @@ import Payment from './Component/payment/Payment'
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Success from './Component/payment/Success'
+import MyOrder from './Component/order/MyOrder'
+import OrderDetails from './Component/order/OrderDetails'
+import ProtectedRoute from './Component/protectedRoute/ProtectedRoute'
 
 
 function App() {
 
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [stripeApiKey, setStripeApiKey] = useState("");
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/stripeapiKey");
@@ -49,25 +53,31 @@ function App() {
         <Route path="productDetail/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/shipping" element={<Shipping />} />
-        <Route path="/checkoutStep" element={<CheckoutStep />} />
-        <Route path="/order/confirm" element={<ConfirmOrder />} />
-        <Route path="/success" element={<Success />} />
+        {/* <Route path="/checkout" element={<Checkout />} /> */}
+        {/* <Route path="/checkoutStep" element={<CheckoutStep />} /> */}
+
+        {/* Secure */}
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />} >
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/order/confirm" element={<ConfirmOrder />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/orders/me" element={<MyOrder />} />
+          <Route path="/orderDetails" element={<OrderDetails />} />
+        </Route>
 
         {
           stripeApiKey && (
             <Route
               path="/payment"
-             element={
-               <Elements stripe={loadStripe(stripeApiKey)}>
-                 <Payment />
-               </Elements>
-             }
+              element={
+                <Elements stripe={loadStripe(stripeApiKey)}>
+                  <Payment />
+                </Elements>
+              }
             />
           )
         }
