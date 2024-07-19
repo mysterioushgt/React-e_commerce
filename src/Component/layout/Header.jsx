@@ -10,7 +10,7 @@ function Header() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { user, loading } = useSelector(state => state.auth)
-  console.log(user)
+  // console.log(user)
   const { cartItems } = useSelector(state => state.cart)
   const alert = useAlert()
 

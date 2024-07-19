@@ -37,6 +37,24 @@ function MyOrder() {
           sort: 'asc'
 
         },
+        {
+          label: 'Amount',
+          field: 'amount',
+          sort: 'asc'
+
+        },
+        {
+          label: 'Status',
+          field: 'status',
+          sort: 'asc'
+
+        },
+        {
+          label: 'Actions',
+          field: 'actions',
+          sort: 'asc'
+
+        },
       ],
       rows: []
     }
@@ -58,8 +76,8 @@ function MyOrder() {
   }
   return (
     <>
-    <h1 className='mt-5'>My Orders</h1>
-    {loading ? <Loading/>:(
+      <h1 className='mt-5'>My Orders</h1>
+      {loading ? <Loading /> : (
         <MDBDataTable
           data={setOrers()}
           className='px-3'
@@ -70,7 +88,7 @@ function MyOrder() {
 
         />
 
-    )}
+      )}
     </>
   )
 }

@@ -31,7 +31,7 @@ export const createUser = (formData) => async (dispatch) => {
 
         // eslint-disable-next-line no-undef
         const { data } = await axios.post(link, formData)
-        console.log(data)
+        // console.log(data)
 
         dispatch({
             type: REGISTER_USER_SUCCESS,

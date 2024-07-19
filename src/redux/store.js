@@ -8,6 +8,7 @@ import { sliderReducer } from './reducers/SliderReducer';
 import { userRegisterReducer } from './reducers/UserReducer';
 import { myOrdersReducer, newOrderReducer } from './reducers/OrderReducer';
 
+
 const reducer = combineReducers({
     cat : categoriesReducer,
     pro : productReducer,
@@ -16,7 +17,8 @@ const reducer = combineReducers({
     Sli : sliderReducer,
     auth : userRegisterReducer,
     newOrder : newOrderReducer,
-    myOrders: myOrdersReducer,
+    myOrders : myOrdersReducer
+   
 
 })
 
