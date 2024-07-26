@@ -22,10 +22,12 @@ import Payment from './Component/payment/Payment'
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Success from './Component/payment/Success'
-import OrderDetails from './Component/order/OrderDetails'
+
 import MyOrder from './Component/order/MyOrder'
 import ProtectedRoute from './Component/protectedRoute/ProtectedRoute'
 import ProductDetail from './Component/product/ProductDetail'
+import ProductList from './Component/admin/ProductList'
+import OrderDetails from './Component/order/OrderDetails'
 
 
 
@@ -59,12 +61,15 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Registation />} />
         <Route path='/contact' element={<Contact />} />
-        {/* <Route path='/checkoutstep' element={<CheckoutStep />} /> */}
-
+        
+         {/* ADMIN */}
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/admin/product' element={<ProductList />} />
+               
+        
          {/* secure */}
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>} >
         <Route path='/profile' element={<Profile />} />
-        <Route path='/dashboard' element={<Dashboard />} />       
         <Route path='/shipping' element={<Shipping />} />
         <Route path='/order/confirm' element={<ConfirmOrder />} />
         <Route path='/success' element={<Success />} />
