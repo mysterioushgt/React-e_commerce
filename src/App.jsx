@@ -28,6 +28,7 @@ import ProtectedRoute from './Component/protectedRoute/ProtectedRoute'
 import ProductDetail from './Component/product/ProductDetail'
 import ProductList from './Component/admin/ProductList'
 import OrderDetails from './Component/order/OrderDetails'
+import CategoryList from './Component/admin/CategoryList'
 
 
 
@@ -65,7 +66,7 @@ function App() {
          {/* ADMIN */}
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/admin/product' element={<ProductList />} />
-               
+        <Route path='/admin/category' element={<CategoryList />} />       
         
          {/* secure */}
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>} >

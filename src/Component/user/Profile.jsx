@@ -1,12 +1,70 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch , useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { updateProfile, updatePassword, clearErrors, resetUpdateProfile, resetUpdatePassword, loadUser } from '../../redux/actions/UserAction'
+import { useAlert } from 'react-alert';
 
 function Profile() {
-
-  const { user, loading } = useSelector(state => state.auth)
+  
+    const dispatch = useDispatch();
+    const alert = useAlert();
+    const navigate = useNavigate();
+  const { user, loading,error ,isUpdated} = useSelector(state => state.auth)
 //   console.log(user)
+
+   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [image, setImage] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+   
+//    
+  const submitUpdateProfile = (e) => {
+    e.preventDefault();
+
+    const updateProfileData = new FormData();
+    updateProfileData.append('name', name);
+    updateProfileData.append('email', email);
+    updateProfileData.append('image', image);
+
+    dispatch(updateProfile(updateProfileData));
+
+};
+
+const submitUpdatePassword = (e) => {
+    e.preventDefault();
+
+    const updatePasswordData = {
+        oldPassword,
+        newPassword,
+        confirmPassword
+    };
+
+    dispatch(updatePassword(updatePasswordData));
+};
+
+useEffect(() => {
+    if (user) {
+        setName(user.name);
+        setEmail(user.email);
+        setImage(user?.image?.url);
+    }
+
+    if (error) {
+        alert.error(error);
+        dispatch(clearErrors());
+    }
+
+    if (isUpdated) {
+        alert.success('Updated successfully');
+        dispatch(resetUpdateProfile());
+        dispatch(resetUpdatePassword());
+        dispatch(loadUser()); // Refetch user data
+        
+    }
+}, [dispatch, error, user, isUpdated, alert]);
 
   return (
     <>
@@ -26,68 +84,73 @@ function Profile() {
         </div>
       </div>
 
-    <div className="modal fade" id="updateProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">
-                        Profile Update
-                    </h1>
-                    <button type="button" className="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    <form action="/updateProfile" method="post" encType="multipart/form-data">
-                        <div className="mb-3">
-                            <label htmlFor="">Name</label>
-                            <input type="text" value={user?.name} name="name" className="form-control" />
+      <div className="modal fade" id="updateProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                Profile Update
+                            </h1>
+                            <button type="button" className="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="">Email</label>
-                            <input type="email" value={user?.email} name="email" className="form-control" />
+                        <div className="modal-body">
+                            <form onSubmit={submitUpdateProfile} encType="multipart/form-data">
+                                <div className="mb-3">
+                                    <label htmlFor="name">Name</label>
+                                    <input type="text" value={name} onChange={(n) => setName(n.target.value)} name="name" className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="email">Email</label>
+                                    <input type="email" value={email} onChange={(n) => setEmail(n.target.value)} name="email" className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="image">Image</label>
+                                    <input type="file" onChange={(n) => setImage(n.target.files[0])} name="image" className="form-control" />
+                                    <img src={user?.image?.url} alt="profile-image" width="50px" />
+                                </div>
+                                <button type="submit" className="btn btn-success">Update Profile</button>
+                                <button type="button" className="btn btn-danger ms-2" data-dismiss="modal" aria-label="Close">Close</button>
+                            </form>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="">Image</label>
-                            <input type="file" name="image" className="form-control"/>
-                            <img src={user?.image?.url} alt="profile-image" width="50px"/>
-                        </div>
-                        <button type="submit" className="btn btn-success">Update Profile</button>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div className="modal fade" id="changePassword" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">
-                        Update Password
-                    </h1>
-                    <button type="button" className="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    <form action="/changePassword" method="post">
-                        <div className="mb-3">
-                            <label htmlFor="">Old Password</label>
-                            <input type="password" name="op" className="form-control" />
+            <div className="modal fade" id="changePassword" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                Update Password
+                            </h1>
+                            <button type="button" className="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="">New Password</label>
-                            <input type="password" name="np" className="form-control" />
+                        <div className="modal-body">
+                            <form onSubmit={submitUpdatePassword}>
+                                <div className="mb-3">
+                                    <label htmlFor="oldPassword">Old Password</label>
+                                    <input type="password" value={oldPassword} onChange={(n) => setOldPassword(n.target.value)} name="oldPassword" className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="newPassword">New Password</label>
+                         
+                                    <input type="password" value={newPassword} onChange={(n) => setNewPassword(n.target.value)} name="newPassword" className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="confirmPassword">Confirm Password</label>
+                                    <input type="password" value={confirmPassword} onChange={(n) => setConfirmPassword(n.target.value)} name="confirmPassword" className="form-control" />
+                                </div>
+                                <button type="submit" className="btn btn-success">Update Password</button>
+                                <button type="button" className="btn btn-danger ms-2" data-dismiss="modal" aria-label="Close">Close</button>
+                            </form>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="">Confirm Password</label>
-                            <input type="text" name="cp" className="form-control" />
-                        </div>
-                        <button type="submit" className="btn btn-success">Update Password</button>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+    
+
     </>
-  )
+  );
 }
 
 export default Profile

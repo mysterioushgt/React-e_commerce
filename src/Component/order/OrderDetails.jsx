@@ -14,9 +14,9 @@ import { clearErrors } from '../../redux/actions/UserAction';
 function OrderDetails() {
   const alert =useAlert();
   const dispatch =useDispatch();
-
+  
   const { order, error, loading } = useSelector((state) => state.orderDetail);
-
+   
  const { id } = useParams()
   
 
@@ -127,9 +127,6 @@ function OrderDetails() {
     </>
   )
 }
-
-
-
 
 
 export default OrderDetails

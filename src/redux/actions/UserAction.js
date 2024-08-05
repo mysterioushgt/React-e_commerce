@@ -101,6 +101,64 @@ export const loadUser = () => async (dispatch) => {
         })
     }
 }
+export const updateProfile = (formData) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PROFILE_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        };
+
+        const { data } = await axios.post('/api/updateProfile', formData, config);
+        // console.log(data);
+
+        dispatch({
+            type: UPDATE_PROFILE_SUCCESS,
+            payload: data.status,
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_PROFILE_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+export const updatePassword = (passwords) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const { data } = await axios.post('/api/updatePassword', passwords, config);
+        console.log(data)
+
+        dispatch({
+            type: UPDATE_PASSWORD_SUCCESS,
+            payload: data.status,
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_PASSWORD_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+export const resetUpdateProfile = () => async (dispatch) => {
+    dispatch({ type: UPDATE_PROFILE_RESET });
+};
+
+export const resetUpdatePassword = () => async (dispatch) => {
+    dispatch({ type: UPDATE_PASSWORD_RESET });
+};
+
 //for clear errors
 export const clearErrors=()=>async(dispatch)=>{
     dispatch({type: CLEAR_ERRORS})

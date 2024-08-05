@@ -60,12 +60,38 @@ export const userRegisterReducer = (state={user:{}} , action ) => {
                 loading: false,
                 error: action.payload,
             };
-        case CLEAR_ERRORS:
-            return {
-                ...state,
-                error:null
-            }  
-        default:
-        return state; 
-    }
-}
+            case UPDATE_PROFILE_REQUEST:
+                case UPDATE_PASSWORD_REQUEST:
+                    return {
+                        ...state,
+                        loading: true,
+                    }
+                case UPDATE_PROFILE_SUCCESS:
+                case UPDATE_PASSWORD_SUCCESS:
+                    return {
+                        ...state,
+                        loading: false,
+                        isUpdated: action.payload,
+                    }
+                case UPDATE_PROFILE_FAIL:
+                case UPDATE_PASSWORD_FAIL:
+                    return {
+                        ...state,
+                        loading: false,
+                        error: action.payload,
+                    }
+                case UPDATE_PROFILE_RESET:
+                case UPDATE_PASSWORD_RESET:
+                    return {
+                        ...state,
+                        isUpdated: false,
+                    }
+                case CLEAR_ERRORS:
+                    return {
+                        ...state,
+                        error: null
+                    }
+                default:
+                    return state;
+            }
+        }
